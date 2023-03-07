@@ -134,11 +134,17 @@ MRSA_expected <- function() {
 ##'
 ##' @param result The ruesult of a run trajectory of the model
 ##' @param expected The expected results
+##' @param simplify If this is TRUE (the default) the function returns
+##'     a single number which is the sum of the mean squared error. If
+##'     FALSE it returns a list including: fit: the sum of the mean
+##'     squared error: The proportional distance from the expected
+##'     values for each measurement, distance: The square root of the
+##'     mean squared error for each phase of production.
 ##' @param ... Other arguments
 ##' @export
 ##' @importFrom SimInf prevalence
 ##' @return A number
-MRSA_distance <- function(result, expected, ...) {
+MRSA_distance <- function(result, expected, simplify = TRUE, ...) {
     events <- as.data.frame(result@events)
 
     ## collect nodes
@@ -229,5 +235,9 @@ MRSA_distance <- function(result, expected, ...) {
         sqrt(mean(x^2))
     }, numeric(1))
 
-    sum(distance)
+    if (isTRUE(simplify)) return(sum(distance))
+
+    list(fit = sum(distance),
+         error = error,
+         distance = distance)
 }

@@ -4,12 +4,19 @@
 \alias{MRSA_distance}
 \title{MRSA_distance}
 \usage{
-MRSA_distance(result, expected, ...)
+MRSA_distance(result, expected, simplify = TRUE, ...)
 }
 \arguments{
 \item{result}{The ruesult of a run trajectory of the model}
 
 \item{expected}{The expected results}
+
+\item{simplify}{If this is TRUE (the default) the function returns
+a single number which is the sum of the mean squared error. If
+FALSE it returns a list including: fit: the sum of the mean
+squared error: The proportional distance from the expected
+values for each measurement, distance: The square root of the
+mean squared error for each phase of production.}
 
 \item{...}{Other arguments}
 }
