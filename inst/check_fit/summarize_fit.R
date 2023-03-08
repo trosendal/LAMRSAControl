@@ -1,7 +1,6 @@
 library(LAMRSAControl)
 load("runfit.Rda")
 
-
 ## the order of the values in the MRSA_distance results are as
 ## follows. I will reorder to expect vector to be the same:
 index <- c("q_m1s", "q_m2s", "q_m3s", "q_m2p", "q_m3p", "q_m4p", "q_m5p", "q_m6p")
@@ -21,3 +20,9 @@ sum_fit <- lapply(fit, function(x) {
 sum_fit <- lapply(seq_len(length(sum_fit[[1]])), function(x) {
     do.call("c", lapply(sum_fit, "[[", x))
 })
+names(sum_fit) <- index
+
+par(mfrow = c(2, 4))
+for (i in seq_len(length(sum_fit))) {
+    hist(sum_fit[[i]], breaks = 50)
+}
